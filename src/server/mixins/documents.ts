@@ -12,7 +12,7 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
     async ingest(args: {
       documents: Array<IngestedDocument>;
     }): Promise<boolean> {
-      const uri = new URL("default/documents", this.endpoint);
+      const uri = new URL(`${this.environment}/documents`, this.endpoint);
       const payload = JSON.stringify(new IngestionRequest(args.documents));
       const response = await fetch(uri, {
         method: "POST",

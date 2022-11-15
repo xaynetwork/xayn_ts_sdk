@@ -19,7 +19,7 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
       }
 
       const uri = new URL(
-        `default/users/${this.userId}/personalized_documents`,
+        `${this.environment}/users/${this.userId}/personalized_documents`,
         this.endpoint
       );
 

@@ -13,7 +13,7 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
   return class extends Base {
     async likeDocument(args: { documentId: string }): Promise<boolean> {
       const uri = new URL(
-        `default/users/${this.userId}/interactions`,
+        `${this.environment}/users/${this.userId}/interactions`,
         this.endpoint
       );
       const payload = JSON.stringify(
