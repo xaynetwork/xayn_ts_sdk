@@ -13,14 +13,15 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
       documents: Array<IngestedDocument>;
     }): Promise<boolean> {
       const uri = new URL("default/documents", this.endpoint);
+      const payload = JSON.stringify(new IngestionRequest(args.documents));
       const response = await fetch(uri, {
         method: "POST",
         headers: {
           Accept: "application/json",
-          ContentType: "application/json",
+          "Content-Type": "application/json",
           authorizationToken: this.token,
         },
-        body: JSON.stringify(new IngestionRequest(args.documents), null, "\t"),
+        body: payload,
       });
 
       switch (response.status) {

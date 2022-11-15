@@ -22,9 +22,7 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
             args.documentId,
             UserInteractionType.positive
           ),
-        ]),
-        null,
-        "\t"
+        ])
       );
       const response = await fetch(uri, {
         method: "PATCH",
