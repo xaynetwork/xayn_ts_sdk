@@ -1,5 +1,8 @@
 import { BaseClientCtr } from "../base_client";
-import { PersonalizedDocumentsError, PersonalizedDocumentsErrorKind } from "../model/errors";
+import {
+  PersonalizedDocumentsError,
+  PersonalizedDocumentsErrorKind,
+} from "../model/errors";
 import { PersonalizedDocumentData } from "../model/personalized_document_data";
 
 export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
@@ -9,14 +12,14 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
     async personalizedDocuments(args: {
       count?: number;
     }): Promise<Array<PersonalizedDocumentData>> {
-      let count = args.count ?? 10;
+      const count = args.count ?? 10;
 
       if (count < 1 || count > 100) {
         throw new Error("`count` should be a value between 1 and 100");
       }
 
-      let uri = new URL(
-        `users/${this.userId}/personalized_documents`,
+      const uri = new URL(
+        `default/users/${this.userId}/personalized_documents`,
         this.endpoint
       );
 
@@ -32,14 +35,15 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
 
       switch (response.status) {
         case 200:
-          let documents = (await response.json()) as Array<Map<string, any>>;
+          let json = await response.json();
+          let documents = json["documents"] as Array<any>;
 
           return documents.map(
             (it) =>
               new PersonalizedDocumentData(
-                it.get("id")!,
-                it.get("score")!,
-                it.get("properties")
+                it["id"]!,
+                it["score"]!,
+                it["properties"]
               )
           );
         case 400:

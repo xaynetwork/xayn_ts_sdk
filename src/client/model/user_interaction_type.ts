@@ -1,3 +1,3 @@
 export enum UserInteractionType {
-  positive,
+  positive = <any>'positive',
 }

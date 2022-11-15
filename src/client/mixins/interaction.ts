@@ -1,28 +1,39 @@
 import { BaseClientCtr } from "../base_client";
-import { UserInteractionError, UserInteractionErrorKind } from "../model/errors";
-import { UserInteractionData, UserInteractionRequest, UserInteractionType } from "../model/model";
+import {
+  UserInteractionError,
+  UserInteractionErrorKind,
+} from "../model/errors";
+import {
+  UserInteractionData,
+  UserInteractionRequest,
+  UserInteractionType,
+} from "../model/model";
 
 export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
   return class extends Base {
     async likeDocument(args: { documentId: string }): Promise<boolean> {
-      let uri = new URL(`users/${this.userId}/interaction`, this.endpoint);
-
+      const uri = new URL(
+        `default/users/${this.userId}/interactions`,
+        this.endpoint
+      );
+      const payload = JSON.stringify(
+        new UserInteractionRequest([
+          new UserInteractionData(
+            args.documentId,
+            UserInteractionType.positive
+          ),
+        ]),
+        null,
+        "\t"
+      );
       const response = await fetch(uri, {
-        method: "GET",
+        method: "PATCH",
         headers: {
           Accept: "application/json",
+          "Content-Type": "application/json",
           authorizationToken: this.token,
         },
-        body: JSON.stringify(
-          new UserInteractionRequest([
-            new UserInteractionData(
-              args.documentId,
-              UserInteractionType.positive
-            ),
-          ]),
-          null,
-          "\t"
-        ),
+        body: payload,
       });
 
       switch (response.status) {
