@@ -27,7 +27,7 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
       const response = await fetch(uri, {
         method: "PATCH",
         headers: {
-          Accept: "application/json",
+          Accept: "*/*",
           "Content-Type": "application/json",
           authorizationToken: this.token,
         },
