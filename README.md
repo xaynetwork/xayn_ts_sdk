@@ -20,33 +20,33 @@ const server = new Server({
 ### Uploading documents
 The ingest method accepts a batch of documents:
 ```typescript
-let result = await server.ingest({
+const result = await server.ingest({
     documents: [
-    new IngestedDocument(
-        "document_id_a",
-        "The quick brown fox jumped over the lazy dog",
-        {
-            category: "fonts",
-            link: "https://www.fonts.com",
-            image: "https://www.fonts.com/hello.png",
-        }
-    ),
-    new IngestedDocument(
-        "document_id_b",
-        "Arsenal beat Liverpool yesterday",
-        {
-            category: "sports",
-            link: "https://www.sports.com",
-            image: "https://www.sports.com/match.png",
-        }
-    ),
+        new IngestedDocument(
+            "document_id_a",
+            "The quick brown fox jumped over the lazy dog",
+            {
+                category: "fonts",
+                link: "https://www.fonts.com",
+                image: "https://www.fonts.com/hello.png",
+            }
+        ),
+        new IngestedDocument(
+            "document_id_b",
+            "Arsenal beat Liverpool yesterday",
+            {
+                category: "sports",
+                link: "https://www.sports.com",
+                image: "https://www.sports.com/match.png",
+            }
+        ),
     ],
 }); /// returns true if successful
 ```
 ### Update a document's properties
 This example updates the properties for ```document_id_a``` and overwrites the image.
 ```typescript
-let result = await server.updateProperties({
+const result = await server.updateProperties({
     documentId: "document_id_a",
     properties: {
         category: "fonts",
@@ -57,7 +57,7 @@ let result = await server.updateProperties({
 ```
 ### Fetch a document's properties
 ```typescript
-let result = await server.getProperties({
+const result = await server.getProperties({
     documentId: "document_id_a",
 });
 
@@ -77,7 +77,7 @@ await server.delete({
 ```
 ### Delete multiple documents
 ```typescript
-let result = await server.deleteAll({
+const result = await server.deleteAll({
     documents: ["document_id_a", "document_id_b"],
 });
 ```
