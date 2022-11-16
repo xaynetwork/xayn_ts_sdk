@@ -11,7 +11,7 @@ ___
 To create the server-side SDK version, simply use
 
 ```typescript
-const server = new Server({
+const sdk = new Server({
   endpoint: {your_endpoint},
   environment: {your_environment}, // eg default
   token: {your_token},
@@ -20,7 +20,7 @@ const server = new Server({
 ### Uploading documents
 The ingest method accepts a batch of documents:
 ```typescript
-const result = await server.ingest({
+const result = await sdk.ingest({
     documents: [
         new IngestedDocument(
             "document_id_a",
@@ -46,7 +46,7 @@ const result = await server.ingest({
 ### Update a document's properties
 This example updates the properties for ```document_id_a``` and overwrites the image.
 ```typescript
-const result = await server.updateProperties({
+const result = await sdk.updateProperties({
     documentId: "document_id_a",
     properties: {
         category: "fonts",
@@ -57,7 +57,7 @@ const result = await server.updateProperties({
 ```
 ### Fetch a document's properties
 ```typescript
-const result = await server.getProperties({
+const result = await sdk.getProperties({
     documentId: "document_id_a",
 });
 
@@ -65,19 +65,19 @@ expect(result["properties"]["category"]).to.equal("fonts");
 ```
 ### Delete a document's properties
 ```typescript
-await server.deleteProperties({
+await sdk.deleteProperties({
     documentId: "document_id_a",
 });
 ```
 ### Delete a single document
 ```typescript
-await server.delete({
+await sdk.delete({
     documentId: "document_id_a",
 });
 ```
 ### Delete multiple documents
 ```typescript
-const result = await server.deleteAll({
+const result = await sdk.deleteAll({
     documents: ["document_id_a", "document_id_b"],
 });
 ```
@@ -86,7 +86,7 @@ ___
 To create the client-side SDK version, simply use
 
 ```typescript
-const server = new Client({
+const sdk = new Client({
   endpoint: {your_endpoint},
   environment: {your_environment}, // eg default
   token: {your_token},
@@ -95,9 +95,9 @@ const server = new Client({
 ```
 ### Like a single document
 ```typescript
-await client.likeDocument({ documentId: "test_d" }); // returns true if successful
+await sdk.likeDocument({ documentId: "test_d" }); // returns true if successful
 ```
 ### Fetch personalized documents
 ```typescript
-const result = await client.personalizedDocuments({});
+const result = await sdk.personalizedDocuments({});
 ```
