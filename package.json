@@ -2,7 +2,7 @@
   "name": "xayn_ts_sdk",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/xayn_sdk.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha -r ts-node/register -r amd-loader 'src/**/*.test.ts'",
     "build": "tsc"
