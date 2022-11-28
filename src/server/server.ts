@@ -8,3 +8,8 @@ export * from "./model/model";
 export const Server = DocumentPropertiesMixin(
   DeleteDocumentsMixin(DocumentsMixin(BaseServer))
 );
+
+function _ts_type_helper() {
+    return new Server({ token: '', endpoint: '', environment: '', });
+}
+export type Server = ReturnType<typeof _ts_type_helper>;
