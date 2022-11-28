@@ -1,23 +1,23 @@
 {
-  "name": "xayn_js_sdk",
+  "name": "xayn_ts_sdk",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha -r ts-node/register -r amd-loader 'src/**/*.test.ts'",
     "build": "tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xaynetwork/xayn_js_sdk.git"
+    "url": "git+https://github.com/xaynetwork/xayn_ts_sdk.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/xaynetwork/xayn_js_sdk/issues"
+    "url": "https://github.com/xaynetwork/xayn_ts_sdk/issues"
   },
-  "homepage": "https://github.com/xaynetwork/xayn_js_sdk#readme",
+  "homepage": "https://github.com/xaynetwork/xayn_ts_sdk#readme",
   "devDependencies": {
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.0",
