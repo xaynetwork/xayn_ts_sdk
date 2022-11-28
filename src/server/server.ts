@@ -8,3 +8,6 @@ export * from "./model/model";
 export const Server = DocumentPropertiesMixin(
   DeleteDocumentsMixin(DocumentsMixin(BaseServer))
 );
+
+const _server = new Server({ token: '', endpoint: 'https://d.invalid', environment: '', });
+export type Server = typeof _server;
