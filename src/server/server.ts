@@ -9,5 +9,7 @@ export const Server = DocumentPropertiesMixin(
   DeleteDocumentsMixin(DocumentsMixin(BaseServer))
 );
 
-const _server = new Server({ token: '', endpoint: 'https://d.invalid', environment: '', });
-export type Server = typeof _server;
+function _ts_type_helper() {
+    return new Server({ token: '', endpoint: '', environment: '', });
+}
+export type Server = ReturnType<typeof _ts_type_helper>;
