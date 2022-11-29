@@ -10,12 +10,12 @@ export class BaseClient {
 
   constructor(args: {
     readonly token: string;
-    readonly endpoint: string;
+    readonly endpoint: string | URL;
     readonly environment: string;
     readonly userId: string;
   }) {
     this.token = args.token;
-    this.endpoint = new URL(args.endpoint);
+    this.endpoint = args.endpoint instanceof URL ? args.endpoint : new URL(args.endpoint);
     this.environment = args.environment;
     this.userId = args.userId;
   }
