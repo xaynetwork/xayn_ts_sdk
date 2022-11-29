@@ -12,8 +12,6 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
     async ingest(args: {
       documents: Array<IngestedDocument>;
     }): Promise<boolean> {
-      let index = 0;
-
       var _ingest = async (args: {
         documents: Array<IngestedDocument>;
       }): Promise<boolean> => {
@@ -55,10 +53,8 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
       // ingest in batches of 100, as this limit is imposed by our engine.
       for (var i = 0, len = args.documents.length; i < len; i += 100) {
         await _ingest({
-          documents: args.documents.slice(index, index + 100),
+          documents: args.documents.slice(i, i + 100),
         });
-
-        index += 100;
       }
 
       return true;
