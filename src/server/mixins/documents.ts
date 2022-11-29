@@ -12,39 +12,56 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
     async ingest(args: {
       documents: Array<IngestedDocument>;
     }): Promise<boolean> {
-      const uri = new URL(`${this.environment}/documents`, this.endpoint);
-      const payload = JSON.stringify(new IngestionRequest(args.documents));
-      const response = await fetch(uri, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          authorizationToken: this.token,
-        },
-        body: payload,
-      });
+      let index = 0;
 
-      switch (response.status) {
-        case 204:
-          return true;
-        case 400:
-          throw new Error("Invalid request.");
-        case 500:
-          let error = await response.json();
-          let details = error["details"] as Array<any>;
-          let list = details.map((it) => {
-            return new IngestionErrorDocumentData(it["id"], it["properties"]);
-          });
+      var _ingest = async (args: {
+        documents: Array<IngestedDocument>;
+      }): Promise<boolean> => {
+        const uri = new URL(`${this.environment}/documents`, this.endpoint);
+        const payload = JSON.stringify(new IngestionRequest(args.documents));
+        const response = await fetch(uri, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            authorizationToken: this.token,
+          },
+          body: payload,
+        });
 
-          throw new IngestionError(
-            new IngestionErrorDetails(list),
-            "all or some of the documents were not successfully uploaded"
-          );
-        default:
-          throw new Error(
-            `Status code ${response.status}: "${response.statusText}", "${response.text}".`
-          );
+        switch (response.status) {
+          case 204:
+            return true;
+          case 400:
+            throw new Error("Invalid request.");
+          case 500:
+            let error = await response.json();
+            let details = error["details"] as Array<any>;
+            let list = details.map((it) => {
+              return new IngestionErrorDocumentData(it["id"], it["properties"]);
+            });
+
+            throw new IngestionError(
+              new IngestionErrorDetails(list),
+              "all or some of the documents were not successfully uploaded"
+            );
+          default:
+            throw new Error(
+              `Status code ${response.status}: "${response.statusText}", "${response.text}".`
+            );
+        }
+      };
+
+      // ingest in batches of 100, as this limit is imposed by our engine.
+      for (var i = 0, len = args.documents.length; i < len; i += 100) {
+        await _ingest({
+          documents: args.documents.slice(index, index + 100),
+        });
+
+        index += 100;
       }
+
+      return true;
     }
   };
 }
