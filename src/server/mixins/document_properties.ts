@@ -1,3 +1,4 @@
+import { withAdditionalPathSegments } from "../../utils";
 import { BaseServerCtr } from "../base_server";
 import { DocumentPropertiesRequest } from "../model/document_properties_request";
 
@@ -6,10 +7,7 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
 ) {
   return class extends Base {
     async getProperties(args: { documentId: string }): Promise<any> {
-      const uri = new URL(
-        `${this.environment}/documents/${args.documentId}/properties`,
-        this.endpoint
-      );
+      const uri = withAdditionalPathSegments(this.endpoint, ["documents", args.documentId, "properties"]);
       const response = await fetch(uri, {
         method: "GET",
         headers: {
@@ -36,10 +34,7 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
       documentId: string;
       properties: Object;
     }): Promise<boolean> {
-      const uri = new URL(
-        `${this.environment}/documents/${args.documentId}/properties`,
-        this.endpoint
-      );
+      const uri = withAdditionalPathSegments(this.endpoint,["documents", args.documentId, "properties"]);
       const payload = JSON.stringify(
         new DocumentPropertiesRequest(args.properties)
       );
@@ -68,10 +63,7 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
     }
 
     async deleteProperties(args: { documentId: string }): Promise<boolean> {
-      const uri = new URL(
-        `${this.environment}/documents/${args.documentId}/properties`,
-        this.endpoint
-      );
+      const uri = withAdditionalPathSegments(this.endpoint, ["documents", args.documentId, "properties"]);
       const response = await fetch(uri, {
         method: "DELETE",
         headers: {

@@ -1,3 +1,4 @@
+import { withAdditionalPathSegments } from "../../utils";
 import { BaseClientCtr } from "../base_client";
 import {
   PersonalizedDocumentsError,
@@ -18,10 +19,7 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
         throw new Error("`count` should be a value between 1 and 100");
       }
 
-      const uri = new URL(
-        `${this.environment}/users/${this.userId}/personalized_documents`,
-        this.endpoint
-      );
+      const uri = withAdditionalPathSegments(this.endpoint, ["users", this.userId, "personalized_documents"]);
 
       uri.searchParams.append("count", count.toString());
 

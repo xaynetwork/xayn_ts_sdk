@@ -1,3 +1,4 @@
+import { withAdditionalPathSegments } from "../../utils";
 import { BaseClientCtr } from "../base_client";
 import {
   UserInteractionError,
@@ -12,10 +13,8 @@ import {
 export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
   return class extends Base {
     async likeDocument(args: { documentId: string }): Promise<boolean> {
-      const uri = new URL(
-        `${this.environment}/users/${this.userId}/interactions`,
-        this.endpoint
-      );
+      const uri = withAdditionalPathSegments(this.endpoint, ["users", this.userId, "interactions"]);
+
       const payload = JSON.stringify(
         new UserInteractionRequest([
           new UserInteractionData(
