@@ -1,4 +1,4 @@
-# Xayn SDK
+# Xayn SDK -- TypeScript version
 
 ## Early Version Warning
 
@@ -17,7 +17,10 @@ and how it can be used will stay roughly the same. Mainly:
   like be auto generated from our internal API specification.
 
 
-## TypeScript version
+## Npm
+
+Pre-build JS with TypeScript annotation files is published to [NPM](https://www.npmjs.com/package/xayn_ts_sdk)
+
 ___
 ## Overview
 
