@@ -3,13 +3,11 @@ import "mocha";
 import { Client } from "../index";
 
 const endpoint = "{ENFPOINT}";
-const environment = "default";
 const token = "{TOKEN}";
 const userId = "test";
 
 const client = new Client({
   endpoint: endpoint,
-  environment: environment,
   token: token,
   userId: userId,
 });

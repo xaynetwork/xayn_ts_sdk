@@ -10,6 +10,6 @@ export const Server = DocumentPropertiesMixin(
 );
 
 function _ts_type_helper() {
-    return new Server({ token: '', endpoint: '', environment: '', });
+    return new Server({ token: '', endpoint: '', });
 }
 export type Server = ReturnType<typeof _ts_type_helper>;

@@ -1,3 +1,4 @@
+import { withAdditionalPathSegments } from "../../utils";
 import { BaseServerCtr } from "../base_server";
 import {
   IngestionError,
@@ -15,7 +16,7 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
       var _ingest = async (args: {
         documents: Array<IngestedDocument>;
       }): Promise<boolean> => {
-        const uri = new URL(`${this.environment}/documents`, this.endpoint);
+        const uri = withAdditionalPathSegments(this.endpoint, ['documents' ]);
         const payload = JSON.stringify(new IngestionRequest(args.documents));
         const response = await fetch(uri, {
           method: "POST",

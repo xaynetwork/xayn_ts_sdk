@@ -1,13 +1,11 @@
+import { withAdditionalPathSegments } from "../../utils";
 import { BaseServerCtr } from "../base_server";
 import { DeleteDocumentsRequest } from "../model/delete_documents_request";
 
 export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
   return class extends Base {
     async delete(args: { documentId: string }): Promise<boolean> {
-      const uri = new URL(
-        `${this.environment}/documents/${args.documentId}`,
-        this.endpoint
-      );
+      const uri = withAdditionalPathSegments(this.endpoint, ["documents", args.documentId]);
       const response = await fetch(uri, {
         method: "DELETE",
         headers: {
@@ -29,7 +27,7 @@ export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
     }
 
     async deleteAll(args: { documents: Array<string> }): Promise<boolean> {
-      const uri = new URL(`${this.environment}/documents`, this.endpoint);
+      const uri = withAdditionalPathSegments(this.endpoint, ["documents"]);
       const payload = JSON.stringify(
         new DeleteDocumentsRequest(args.documents)
       );

@@ -3,12 +3,10 @@ import "mocha";
 import { IngestedDocument, Server } from "../index";
 
 const endpoint = "{ENDPOINT}";
-const environment = "default";
 const token = "{TOKEN}";
 
 const server = new Server({
   endpoint: endpoint,
-  environment: environment,
   token: token,
 });
 

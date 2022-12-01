@@ -16,8 +16,7 @@ To create the server-side SDK version, simply use
 
 ```typescript
 const sdk = new Server({
-  endpoint: {your_endpoint},
-  environment: {your_environment}, // eg default
+  endpoint: {your_endpoint_url}, //e.g. https://some.domain.invalid/default
   token: {your_token},
 });
 ```
@@ -63,7 +62,7 @@ const result = await sdk.ingest({
             }
         ),
     ],
-}); /// returns true if successful
+});
 ```
 ### Update a document's properties
 This example updates the properties for ```document_id_a``` and overwrites the image.
@@ -117,15 +116,14 @@ To create the client-side SDK version, simply use
 ```typescript
 const sdk = new Client({
   endpoint: {your_endpoint},
-  environment: {your_environment}, // eg default
   token: {your_token},
-  userId: {any_user}, // eg John_Doe
+  userId: {any_user}, // eg "35940aa3-95ad-4dc2-9a2b-000eed135e9b"
 });
 ```
 ### Like a single document
 Marks the given document as "liked" for this user.
 ```typescript
-await sdk.likeDocument({ documentId: "test_d" }); // returns true if successful
+await sdk.likeDocument({ documentId: "test_d" });
 ```
 ### Fetch personalized documents
 Fetches personalized documents for this user.\
