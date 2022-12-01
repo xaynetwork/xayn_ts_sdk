@@ -1,4 +1,22 @@
 # Xayn SDK
+
+## Early Version Warning
+
+This library will change, through it overall functionality
+and how it can be used will stay roughly the same. Mainly:
+
+- `Client` and `Server` here refer to a sdk each. `Client` is used by publishers
+  clients (and there server in case of server side rendering). `Server` is used
+  by publishers server. This will be renamed soon candidates are `PersonalizationApi`
+  and `ManagementApi`, through it's not fixed.
+
+- Currently the library only builds ECMScript modules, in the coming days we will
+  add support for at least some of the other still commonly used module format.
+
+- The implementation has a lot of potential for improvement in the future it will
+  like be auto generated from our internal API specification.
+
+
 ## TypeScript version
 ___
 ## Overview
@@ -132,3 +150,10 @@ The default size is 10, but you can also pass a custom ```count``` value to over
 ```typescript
 const result = await sdk.personalizedDocuments({});
 ```
+
+License
+--------
+
+Licensed under
+
+- Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
