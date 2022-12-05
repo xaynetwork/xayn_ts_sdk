@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, no-unused-vars
 type _Constructor<T = unknown> = new (...args: any[]) => T;
 
 export type BaseServerCtr = _Constructor<BaseServer>;

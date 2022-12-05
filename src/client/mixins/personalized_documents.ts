@@ -26,7 +26,7 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
   return class extends Base {
     async personalizedDocuments(args: {
       count?: number;
-    }): Promise<Array<PersonalizedDocumentData>> {
+    }): Promise<PersonalizedDocumentData[]> {
       const count = args.count ?? 10;
 
       if (count < 1 || count > 100) {
@@ -52,15 +52,7 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
       switch (response.status) {
         case 200: {
           const json = await response.json();
-          const documents = json["documents"] as Array<{
-            id: string;
-            score: number;
-            properties?: Record<string, unknown>;
-          }>;
-
-          return documents.map(
-            (it) => new PersonalizedDocumentData(it.id, it.score, it.properties)
-          );
+          return json.documents as PersonalizedDocumentData[];
         }
         case 400:
           throw new Error("invalid user id.");
@@ -70,7 +62,7 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
           const error = await response.json();
           let errorKind = null;
 
-          switch (error["kind"]) {
+          switch (error.kind) {
             case "NotEnoughInteractions":
               errorKind = PersonalizedDocumentsErrorKind.NotEnoughInteractions;
               break;

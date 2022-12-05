@@ -3,12 +3,17 @@ module.exports = {
   root: true,
   extends: [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/strict",
     "prettier",
   ],
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: "./tsconfig.json",
+  },
   plugins: ["@typescript-eslint", "prettier"],
   rules: {
-    "prettier/prettier": 2,
+    "prettier/prettier": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
   },
 };

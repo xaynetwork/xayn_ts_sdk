@@ -25,7 +25,7 @@ export class IngestionError extends Error {
 }
 
 export class IngestionErrorDetails {
-  constructor(readonly documents: Array<IngestionErrorDocumentData>) {}
+  constructor(readonly documents: IngestionErrorDocumentData[]) {}
 }
 
 export class IngestionErrorDocumentData {

@@ -22,8 +22,11 @@ export enum PersonalizedDocumentsErrorKind {
 }
 
 export class PersonalizedDocumentsError extends Error {
-  constructor(readonly kind: PersonalizedDocumentsErrorKind, msg: string) {
+  readonly kind: PersonalizedDocumentsErrorKind;
+  constructor(kind: PersonalizedDocumentsErrorKind, msg: string) {
     super(msg);
+
+    this.kind = kind;
 
     Object.setPrototypeOf(this, PersonalizedDocumentsError.prototype);
   }
@@ -40,8 +43,11 @@ export enum UserInteractionErrorKind {
 }
 
 export class UserInteractionError extends Error {
-  constructor(readonly kind: UserInteractionErrorKind, msg: string) {
+  readonly kind: UserInteractionErrorKind;
+  constructor(kind: UserInteractionErrorKind, msg: string) {
     super(msg);
+
+    this.kind = kind;
 
     Object.setPrototypeOf(this, UserInteractionError.prototype);
   }

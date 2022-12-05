@@ -18,11 +18,6 @@ import {
   UserInteractionError,
   UserInteractionErrorKind,
 } from "../model/errors";
-import {
-  UserInteractionData,
-  UserInteractionRequest,
-  UserInteractionType,
-} from "../model/model";
 
 export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
   return class extends Base {
@@ -33,14 +28,6 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
         "interactions",
       ]);
 
-      const payload = JSON.stringify(
-        new UserInteractionRequest([
-          new UserInteractionData(
-            args.documentId,
-            UserInteractionType.positive
-          ),
-        ])
-      );
       const response = await fetch(uri, {
         method: "PATCH",
         headers: {
@@ -48,7 +35,12 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
           "Content-Type": "application/json",
           authorizationToken: this.token,
         },
-        body: payload,
+        body: JSON.stringify({
+          documents: {
+            id: args.documentId,
+            type: "positive",
+          },
+        }),
       });
 
       switch (response.status) {
@@ -58,7 +50,7 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
           const error = await response.json();
           let errorKind = null;
 
-          switch (error["kind"]) {
+          switch (error.kind) {
             case "InvalidUserId":
               errorKind = UserInteractionErrorKind.InvalidUserId;
               break;

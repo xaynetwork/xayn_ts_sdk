@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import "mocha";
-import { IngestedDocument, Server } from "../index";
+import { Server } from "../index";
 
 const endpoint = "{ENDPOINT}";
 const token = "{TOKEN}";
@@ -14,41 +14,44 @@ describe("ingest documents", () => {
   it("EXPECT documents are ingested", async () => {
     const result = await server.ingest({
       documents: [
-        new IngestedDocument(
-          "test_a",
-          "The world cup is starting next week! Who will be crowned champions?",
-          {
+        {
+          id: "test_a",
+          snippet:
+            "The world cup is starting next week! Who will be crowned champions?",
+          properties: {
             category: "sports",
-          }
-        ),
-        new IngestedDocument(
-          "test_b",
-          "How to cook spaghetti in 20 easy steps",
-          {
+          },
+        },
+        {
+          id: "test_b",
+          snippet: "How to cook spaghetti in 20 easy steps",
+          properties: {
             category: "recipes",
-          }
-        ),
-        new IngestedDocument(
-          "test_c",
-          "I wonder if this friggin test will ever work, love NPM really!",
-          {
+          },
+        },
+        {
+          id: "test_c",
+          snippet:
+            "I wonder if this friggin test will ever work, love NPM really!",
+          properties: {
             category: "programming",
-          }
-        ),
-        new IngestedDocument(
-          "test_d",
-          "Trump is attempting to go for a second term in 2024.",
-          {
+          },
+        },
+        {
+          id: "test_d",
+          snippet: "Trump is attempting to go for a second term in 2024.",
+          properties: {
             category: "politics",
-          }
-        ),
-        new IngestedDocument(
-          "test_e",
-          "Climate activists have glued themselves again on a famous painting in New York.",
-          {
+          },
+        },
+        {
+          id: "test_e",
+          snippet:
+            "Climate activists have glued themselves again on a famous painting in New York.",
+          properties: {
             category: "culture",
-          }
-        ),
+          },
+        },
       ],
     });
 
@@ -71,11 +74,11 @@ describe("update single document's properties", () => {
 
 describe("get single document's properties", () => {
   it("EXPECT to receive properties", async () => {
-    const result = await server.getProperties({
+    const result = (await server.getProperties({
       documentId: "test_a",
-    });
+    })) as { properties: { category: string } };
 
-    expect(result["properties"]["category"]).to.equal("football");
+    expect(result.properties.category).to.equal("football");
   });
 });
 
