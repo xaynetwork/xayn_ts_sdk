@@ -1,7 +1,14 @@
 module.exports = {
-    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
-    parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint'],
-    // This is the root .eslintrc don't look for addition ones in the parent folder.
-    root: true,
+  // This is the root .eslintrc don't look for addition ones in the parent folder.
+  root: true,
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint", "prettier"],
+  rules: {
+    "prettier/prettier": 2,
+  },
 };
