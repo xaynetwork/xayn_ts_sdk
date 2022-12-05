@@ -15,5 +15,5 @@ jobs:
         run: npm run check
       - name: Build JavaScript
         run: npm run build
-      - name: Run Unit Tests
-        run: npm run test
+      # - name: Run Unit Tests
+      #   run: npm run test

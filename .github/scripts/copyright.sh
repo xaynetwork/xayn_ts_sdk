@@ -3,10 +3,7 @@
 set -e
 
 files_to_check() {
-    find . \
-         -or -type d -name target -prune \
-         -or -name "*.rs" \
-         -print
+    find src/ -name '*.ts' -print
 }
 
 errors=0
