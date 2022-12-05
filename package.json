@@ -30,7 +30,9 @@
   },
   "homepage": "https://github.com/xaynetwork/xayn_ts_sdk#readme",
   "devDependencies": {
-    "@tsconfig/next-strictest": "^1.0.0",
+    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
+    "@tsconfig/node14": "^1.0.3",
+    "@tsconfig/strictest": "^1.0.2",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",

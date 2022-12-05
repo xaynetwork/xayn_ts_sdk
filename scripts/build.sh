@@ -15,21 +15,20 @@ OUT="$ROOT/dist"
 # Make sure OUT is clean instead of just adding/overwriting
 [ -d "$OUT" ] && rm -r "$OUT"
 
-# Build ECMAScript module
-#TODO: Remove once the other variants are added
-tsc -p ./tsconfig.json
+# Cheap way to get some progress feedback
+set -x
 
-# Build for older nodejs
-#tsc -p ./tsconfig-nodejs-commonjs.json
+# Build for older nodejs (>=v14)
+# tsc -p ./tsconfig.node-lts-old.json
 
-# Build for modern nodejs
-#tsc -p ./tsconfig-nodejs-esm.json
+# Build for modern nodejs (>=v18)
+# tsc -p ./tsconfig.node-lts.json
 
-# Build for older browser toolchain
-#tsc -p ./tsconfig-browser-commonjs.json
+# Build for browser tools using CommonJs
+tsc -p ./tsconfig.browser-cjs.json
 
-# Build for modern browser toolchain
-#tsc -p ./tsconfig-browser-esm.json
+# Build for browser tools using standard ECMScript modules
+tsc -p ./tsconfig.browser-esm.json
 
 
 

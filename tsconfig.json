@@ -1,5 +1,14 @@
 {
+    // Schema used for testing and development.
+    // For now this will use node-lts-strictest-esm, but it might switch
+    // to something else in the future.
     "$schema": "https://json.schemastore.org/tsconfig",
-    "extends": "@tsconfig/next-strictest/tsconfig.json",
+    "extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
+    "compilerOptions": {
+        "declaration": true,
+        "noEmit": true,
+        //FIXME
+        "lib": ["ES2015", "DOM"]
+    },
     "include": [ "src/**/*", "tests/**/*" ]
 }
