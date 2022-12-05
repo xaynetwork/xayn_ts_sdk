@@ -1,16 +1,19 @@
 {
+  "$schema": "https://json.schemastore.org/package",
   "name": "xayn_ts_sdk",
   "version": "0.0.2",
   "description": "Xayn SDK (beta)",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
   "scripts": {
-    "test": "mocha -r ts-node/register -r amd-loader 'src/**/*.test.ts'",
+    "test": "mocha",
     "build": "./scripts/build.sh",
-    "check": "eslint src/",
+    "//": "While we call tsc here this will not emit anything to dist but runs some additional checks not done by eslint.",
+    "check": "eslint src/ && tsc -p ./tsconfig.json",
     "fix": "eslint --fix src/",
     "fmt": "prettier --config .prettierrc 'src/' --write"
   },
@@ -26,6 +29,7 @@
   },
   "homepage": "https://github.com/xaynetwork/xayn_ts_sdk#readme",
   "devDependencies": {
+    "@tsconfig/next-strictest": "^1.0.0",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
