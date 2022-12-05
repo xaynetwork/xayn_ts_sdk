@@ -47,8 +47,8 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
 
       switch (response.status) {
         case 200:
-          let json = await response.json();
-          let documents = json["documents"] as Array<any>;
+          const json = await response.json();
+          const documents = json["documents"] as Array<any>;
 
           return documents.map(
             (it) =>
@@ -63,7 +63,7 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
         case 404:
           throw new Error("user not found.");
         case 422:
-          let error = await response.json();
+          const error = await response.json();
           let errorKind = null;
 
           switch (error["kind"]) {

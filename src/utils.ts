@@ -1,7 +1,7 @@
 
 
 export function withAdditionalPathSegments(url: string | URL, segments: string[]): URL {
-    let extended = new URL(url);
+    const extended = new URL(url);
     extended.pathname =
         // make sure not not have a //
         [trimEndSlash(extended.pathname)]

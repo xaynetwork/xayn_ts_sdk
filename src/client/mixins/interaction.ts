@@ -51,7 +51,7 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
         case 204:
           return true;
         case 400:
-          let error = await response.json();
+          const error = await response.json();
           let errorKind = null;
 
           switch (error["kind"]) {

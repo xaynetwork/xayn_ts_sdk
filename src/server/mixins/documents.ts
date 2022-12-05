@@ -27,7 +27,7 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
     async ingest(args: {
       documents: Array<IngestedDocument>;
     }): Promise<boolean> {
-      var _ingest = async (args: {
+      const _ingest = async (args: {
         documents: Array<IngestedDocument>;
       }): Promise<boolean> => {
         const uri = withAdditionalPathSegments(this.endpoint, ['documents' ]);
@@ -48,9 +48,9 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
           case 400:
             throw new Error("Invalid request.");
           case 500:
-            let error = await response.json();
-            let details = error["details"] as Array<any>;
-            let list = details.map((it) => {
+            const error = await response.json();
+            const details = error["details"] as Array<any>;
+            const list = details.map((it) => {
               return new IngestionErrorDocumentData(it["id"], it["properties"]);
             });
 
@@ -66,7 +66,7 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
       };
 
       // ingest in batches of 100, as this limit is imposed by our engine.
-      for (var i = 0, len = args.documents.length; i < len; i += 100) {
+      for (let i = 0, len = args.documents.length; i < len; i += 100) {
         await _ingest({
           documents: args.documents.slice(i, i + 100),
         });

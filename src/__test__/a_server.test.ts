@@ -12,7 +12,7 @@ const server = new Server({
 
 describe("ingest documents", () => {
   it("EXPECT documents are ingested", async () => {
-    let result = await server.ingest({
+    const result = await server.ingest({
       documents: [
         new IngestedDocument(
           "test_a",
@@ -58,7 +58,7 @@ describe("ingest documents", () => {
 
 describe("update single document's properties", () => {
   it("EXPECT to update properties", async () => {
-    let result = await server.updateProperties({
+    const result = await server.updateProperties({
       documentId: "test_a",
       properties: {
         category: "football",
@@ -71,7 +71,7 @@ describe("update single document's properties", () => {
 
 describe("get single document's properties", () => {
   it("EXPECT to receive properties", async () => {
-    let result = await server.getProperties({
+    const result = await server.getProperties({
       documentId: "test_a",
     });
 
@@ -81,7 +81,7 @@ describe("get single document's properties", () => {
 
 describe("delete single document's properties", () => {
   it("EXPECT to delete properties", async () => {
-    let result = await server.deleteProperties({
+    const result = await server.deleteProperties({
       documentId: "test_a",
     });
 
@@ -91,7 +91,7 @@ describe("delete single document's properties", () => {
 
 describe("delete single document", () => {
   it("EXPECT document is deleted", async () => {
-    let result = await server.delete({
+    const result = await server.delete({
       documentId: "test_a",
     });
 
@@ -101,7 +101,7 @@ describe("delete single document", () => {
 
 describe("delete documents", () => {
   it("EXPECT documents are deleted", async () => {
-    let result = await server.deleteAll({
+    const result = await server.deleteAll({
       documents: ["test_b", "test_c"],
     });
 
