@@ -1,6 +1,6 @@
 {
   "name": "xayn_ts_sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Xayn SDK (beta)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
