@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { withAdditionalPathSegments } from "../../utils";
-import { BaseServerCtr } from "../base_server";
+import type { BaseServerCtr } from "../base_server";
 
 export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
   return class extends Base {

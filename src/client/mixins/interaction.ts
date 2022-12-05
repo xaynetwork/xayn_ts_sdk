@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { withAdditionalPathSegments } from "../../utils";
-import { BaseClientCtr } from "../base_client";
+import type { BaseClientCtr } from "../base_client";
 import {
   UserInteractionError,
   UserInteractionErrorKind,
