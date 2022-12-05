@@ -33,7 +33,11 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
         throw new Error("`count` should be a value between 1 and 100");
       }
 
-      const uri = withAdditionalPathSegments(this.endpoint, ["users", this.userId, "personalized_documents"]);
+      const uri = withAdditionalPathSegments(this.endpoint, [
+        "users",
+        this.userId,
+        "personalized_documents",
+      ]);
 
       uri.searchParams.append("count", count.toString());
 

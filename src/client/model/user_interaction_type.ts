@@ -13,5 +13,5 @@
 // limitations under the License.
 
 export enum UserInteractionType {
-  positive = <any>'positive',
+  positive = <any>"positive",
 }

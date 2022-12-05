@@ -19,7 +19,10 @@ import { DeleteDocumentsRequest } from "../model/delete_documents_request";
 export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
   return class extends Base {
     async delete(args: { documentId: string }): Promise<boolean> {
-      const uri = withAdditionalPathSegments(this.endpoint, ["documents", args.documentId]);
+      const uri = withAdditionalPathSegments(this.endpoint, [
+        "documents",
+        args.documentId,
+      ]);
       const response = await fetch(uri, {
         method: "DELETE",
         headers: {

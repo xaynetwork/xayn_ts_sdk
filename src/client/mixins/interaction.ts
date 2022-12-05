@@ -27,7 +27,11 @@ import {
 export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
   return class extends Base {
     async likeDocument(args: { documentId: string }): Promise<boolean> {
-      const uri = withAdditionalPathSegments(this.endpoint, ["users", this.userId, "interactions"]);
+      const uri = withAdditionalPathSegments(this.endpoint, [
+        "users",
+        this.userId,
+        "interactions",
+      ]);
 
       const payload = JSON.stringify(
         new UserInteractionRequest([
