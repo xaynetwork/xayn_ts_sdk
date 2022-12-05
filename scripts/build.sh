@@ -18,18 +18,17 @@ OUT="$ROOT/dist"
 # Cheap way to get some progress feedback
 set -x
 
-# Build for older nodejs (>=v14)
-tsc -p ./tsconfig.node-lts-old.json
+# Build for CommonJs
+#
+# This should work both for node and browser as we
+# use cross-fetch to abstract over the differences
+# there.
+tsc -p ./tsconfig.cjs.json
 
-# Build for modern nodejs (>=v18)
-tsc -p ./tsconfig.node-lts.json
-
-# Build for browser tools using CommonJs
-tsc -p ./tsconfig.browser-cjs.json
-
-# Build for browser tools using standard ECMScript modules
-tsc -p ./tsconfig.browser-esm.json
-
-
-
+# Build for ECMAScript Modules
+#
+# This should work both for node and browser as we
+# use cross-fetch to abstract over the differences
+# there.
+tsc -p ./tsconfig.esm.json
 

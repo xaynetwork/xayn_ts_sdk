@@ -2,10 +2,9 @@
     "$schema": "https://json.schemastore.org/tsconfig",
     "extends": "@tsconfig/strictest/tsconfig.json",
     "compilerOptions": {
-        "outDir": "dist/browser-esm",
-        "module": "ES2015",
+        "outDir": "dist/cjs",
+        "module": "CommonJS",
         "target": "ES2015",
-        "moduleResolution": "node",
         "declaration": true
     },
     "include": [ "src/**/*" ]

@@ -1,5 +1,5 @@
 {
-    // Schema used for testing and development.
+    // tsconfig used for TESTING AND DEVELOPMENT
     // For now this will use node-lts-strictest-esm, but it might switch
     // to something else in the future.
     "$schema": "https://json.schemastore.org/tsconfig",

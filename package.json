@@ -4,8 +4,8 @@
   "version": "0.0.2",
   "description": "Xayn SDK (beta)",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
   "files": [
     "/dist",
     "/src"
@@ -29,6 +29,12 @@
     "url": "https://github.com/xaynetwork/xayn_ts_sdk/issues"
   },
   "homepage": "https://github.com/xaynetwork/xayn_ts_sdk#readme",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "devDependencies": {
     "@tsconfig/node-lts-strictest-esm": "^18.12.1",
     "@tsconfig/node14": "^1.0.3",
