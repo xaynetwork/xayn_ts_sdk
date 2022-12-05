@@ -13,5 +13,5 @@
 // limitations under the License.
 
 export class DocumentPropertiesRequest {
-  constructor(readonly properties: Object) {}
+  constructor(readonly properties: Record<string, unknown>) {}
 }

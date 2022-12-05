@@ -20,7 +20,7 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
   Base: TBase
 ) {
   return class extends Base {
-    async getProperties(args: { documentId: string }): Promise<any> {
+    async getProperties(args: { documentId: string }): Promise<void> {
       const uri = withAdditionalPathSegments(this.endpoint, [
         "documents",
         args.documentId,
@@ -50,7 +50,7 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
 
     async updateProperties(args: {
       documentId: string;
-      properties: Object;
+      properties: Record<string, unknown>;
     }): Promise<boolean> {
       const uri = withAdditionalPathSegments(this.endpoint, [
         "documents",

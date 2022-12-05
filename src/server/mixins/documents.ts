@@ -47,17 +47,21 @@ export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
             return true;
           case 400:
             throw new Error("Invalid request.");
-          case 500:
+          case 500: {
             const error = await response.json();
-            const details = error["details"] as Array<any>;
+            const details = error["details"] as Array<{
+              id: string;
+              properties?: Record<string, unknown>;
+            }>;
             const list = details.map((it) => {
-              return new IngestionErrorDocumentData(it["id"], it["properties"]);
+              return new IngestionErrorDocumentData(it.id, it.properties);
             });
 
             throw new IngestionError(
               new IngestionErrorDetails(list),
               "all or some of the documents were not successfully uploaded"
             );
+          }
           default:
             throw new Error(
               `Status code ${response.status}: "${response.statusText}", "${response.text}".`

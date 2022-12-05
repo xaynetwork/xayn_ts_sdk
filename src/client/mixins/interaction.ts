@@ -54,7 +54,7 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
       switch (response.status) {
         case 204:
           return true;
-        case 400:
+        case 400: {
           const error = await response.json();
           let errorKind = null;
 
@@ -65,12 +65,15 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
             case "InvalidDocumentId":
               errorKind = UserInteractionErrorKind.InvalidDocumentId;
               break;
+            default:
+              errorKind = UserInteractionErrorKind.Unknown;
           }
 
           throw new UserInteractionError(
-            errorKind!,
+            errorKind,
             "invalid request. User or document id is invalid"
           );
+        }
         default:
           throw new Error(
             `Status code ${response.status}: "${response.statusText}", "${response.text}".`

@@ -50,35 +50,39 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
       });
 
       switch (response.status) {
-        case 200:
+        case 200: {
           const json = await response.json();
-          const documents = json["documents"] as Array<any>;
+          const documents = json["documents"] as Array<{
+            id: string;
+            score: number;
+            properties?: Record<string, unknown>;
+          }>;
 
           return documents.map(
-            (it) =>
-              new PersonalizedDocumentData(
-                it["id"]!,
-                it["score"]!,
-                it["properties"]
-              )
+            (it) => new PersonalizedDocumentData(it.id, it.score, it.properties)
           );
+        }
         case 400:
           throw new Error("invalid user id.");
         case 404:
           throw new Error("user not found.");
-        case 422:
+        case 422: {
           const error = await response.json();
           let errorKind = null;
 
           switch (error["kind"]) {
             case "NotEnoughInteractions":
               errorKind = PersonalizedDocumentsErrorKind.NotEnoughInteractions;
+              break;
+            default:
+              errorKind = PersonalizedDocumentsErrorKind.Unknown;
           }
 
           throw new PersonalizedDocumentsError(
-            errorKind!,
+            errorKind,
             "impossible to create a personalized list for the user."
           );
+        }
         default:
           throw new Error(
             `Status code ${response.status}: "${response.statusText}", "${response.text}".`

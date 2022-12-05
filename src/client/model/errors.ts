@@ -18,6 +18,7 @@
 
 export enum PersonalizedDocumentsErrorKind {
   NotEnoughInteractions,
+  Unknown,
 }
 
 export class PersonalizedDocumentsError extends Error {
@@ -35,6 +36,7 @@ export class PersonalizedDocumentsError extends Error {
 export enum UserInteractionErrorKind {
   InvalidUserId,
   InvalidDocumentId,
+  Unknown,
 }
 
 export class UserInteractionError extends Error {

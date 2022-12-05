@@ -29,5 +29,8 @@ export class IngestionErrorDetails {
 }
 
 export class IngestionErrorDocumentData {
-  constructor(readonly id: string, readonly properties?: Map<string, any>) {}
+  constructor(
+    readonly id: string,
+    readonly properties?: Record<string, unknown>
+  ) {}
 }
