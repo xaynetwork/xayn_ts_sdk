@@ -10,9 +10,9 @@
   "scripts": {
     "test": "mocha -r ts-node/register -r amd-loader 'src/**/*.test.ts'",
     "build": "./scripts/build.sh",
-    "lint": "eslint .",
-    "fix": "eslint --fix .",
-    "fmt": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    "lint": "eslint src/",
+    "fix": "eslint --fix src/",
+    "fmt": "prettier --config .prettierrc 'src/' --write"
   },
   "repository": {
     "type": "git",
