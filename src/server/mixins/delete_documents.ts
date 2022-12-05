@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import fetch from "cross-fetch";
+
 import { withAdditionalPathSegments } from "../../utils";
 import type { BaseServerCtr } from "../base_server";
 

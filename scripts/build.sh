@@ -19,10 +19,10 @@ OUT="$ROOT/dist"
 set -x
 
 # Build for older nodejs (>=v14)
-# tsc -p ./tsconfig.node-lts-old.json
+tsc -p ./tsconfig.node-lts-old.json
 
 # Build for modern nodejs (>=v18)
-# tsc -p ./tsconfig.node-lts.json
+tsc -p ./tsconfig.node-lts.json
 
 # Build for browser tools using CommonJs
 tsc -p ./tsconfig.browser-cjs.json
