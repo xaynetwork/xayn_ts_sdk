@@ -1,0 +1,19 @@
+name: TypeScript checks
+
+on:
+  workflow_call:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
+      - name: Setup Repo/Install Deps
+        run: npm clean-install
+      - name: Check lints and formatting
+        run: npm run check
+      - name: Build JavaScript
+        run: npm run build
+      - name: Run Unit Tests
+        run: npm run test
