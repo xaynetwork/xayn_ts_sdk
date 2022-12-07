@@ -26,14 +26,18 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
   return class extends Base {
     async personalizedDocuments(args: {
       count?: number;
-    }): Promise<Array<PersonalizedDocumentData>> {
+    }): Promise<PersonalizedDocumentData[]> {
       const count = args.count ?? 10;
 
       if (count < 1 || count > 100) {
         throw new Error("`count` should be a value between 1 and 100");
       }
 
-      const uri = withAdditionalPathSegments(this.endpoint, ["users", this.userId, "personalized_documents"]);
+      const uri = withAdditionalPathSegments(this.endpoint, [
+        "users",
+        this.userId,
+        "personalized_documents",
+      ]);
 
       uri.searchParams.append("count", count.toString());
 
@@ -46,35 +50,31 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
       });
 
       switch (response.status) {
-        case 200:
-          let json = await response.json();
-          let documents = json["documents"] as Array<any>;
-
-          return documents.map(
-            (it) =>
-              new PersonalizedDocumentData(
-                it["id"]!,
-                it["score"]!,
-                it["properties"]
-              )
-          );
+        case 200: {
+          const json = await response.json();
+          return json.documents as PersonalizedDocumentData[];
+        }
         case 400:
           throw new Error("invalid user id.");
         case 404:
           throw new Error("user not found.");
-        case 422:
-          let error = await response.json();
+        case 422: {
+          const error = await response.json();
           let errorKind = null;
 
-          switch (error["kind"]) {
+          switch (error.kind) {
             case "NotEnoughInteractions":
               errorKind = PersonalizedDocumentsErrorKind.NotEnoughInteractions;
+              break;
+            default:
+              errorKind = PersonalizedDocumentsErrorKind.Unknown;
           }
 
           throw new PersonalizedDocumentsError(
-            errorKind!,
+            errorKind,
             "impossible to create a personalized list for the user."
           );
+        }
         default:
           throw new Error(
             `Status code ${response.status}: "${response.statusText}", "${response.text}".`

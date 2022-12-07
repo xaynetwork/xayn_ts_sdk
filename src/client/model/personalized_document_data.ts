@@ -12,10 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export class PersonalizedDocumentData {
-  constructor(
-    readonly id: string,
-    readonly score: number,
-    readonly properties?: Record<string, any>
-  ) {}
+export interface PersonalizedDocumentData {
+  readonly id: string;
+  readonly score: number;
+  readonly properties?: Record<string, unknown>;
 }

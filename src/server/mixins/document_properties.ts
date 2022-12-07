@@ -14,14 +14,19 @@
 
 import { withAdditionalPathSegments } from "../../utils";
 import { BaseServerCtr } from "../base_server";
-import { DocumentPropertiesRequest } from "../model/document_properties_request";
 
 export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
   Base: TBase
 ) {
   return class extends Base {
-    async getProperties(args: { documentId: string }): Promise<any> {
-      const uri = withAdditionalPathSegments(this.endpoint, ["documents", args.documentId, "properties"]);
+    async getProperties(args: {
+      documentId: string;
+    }): Promise<Record<string, unknown>> {
+      const uri = withAdditionalPathSegments(this.endpoint, [
+        "documents",
+        args.documentId,
+        "properties",
+      ]);
       const response = await fetch(uri, {
         method: "GET",
         headers: {
@@ -46,12 +51,13 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
 
     async updateProperties(args: {
       documentId: string;
-      properties: Object;
-    }): Promise<boolean> {
-      const uri = withAdditionalPathSegments(this.endpoint,["documents", args.documentId, "properties"]);
-      const payload = JSON.stringify(
-        new DocumentPropertiesRequest(args.properties)
-      );
+      properties: Record<string, unknown>;
+    }): Promise<void> {
+      const uri = withAdditionalPathSegments(this.endpoint, [
+        "documents",
+        args.documentId,
+        "properties",
+      ]);
       const response = await fetch(uri, {
         method: "PUT",
         headers: {
@@ -59,12 +65,14 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
           "Content-Type": "application/json",
           authorizationToken: this.token,
         },
-        body: payload,
+        body: JSON.stringify({
+          properties: args.properties,
+        }),
       });
 
       switch (response.status) {
         case 204:
-          return true;
+          return;
         case 400:
           throw new Error("Invalid document id.");
         case 404:
@@ -76,8 +84,12 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
       }
     }
 
-    async deleteProperties(args: { documentId: string }): Promise<boolean> {
-      const uri = withAdditionalPathSegments(this.endpoint, ["documents", args.documentId, "properties"]);
+    async deleteProperties(args: { documentId: string }): Promise<void> {
+      const uri = withAdditionalPathSegments(this.endpoint, [
+        "documents",
+        args.documentId,
+        "properties",
+      ]);
       const response = await fetch(uri, {
         method: "DELETE",
         headers: {
@@ -89,7 +101,7 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
 
       switch (response.status) {
         case 204:
-          return true;
+          return;
         case 400:
           throw new Error("Invalid document id.");
         case 404:

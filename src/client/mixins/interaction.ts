@@ -18,25 +18,16 @@ import {
   UserInteractionError,
   UserInteractionErrorKind,
 } from "../model/errors";
-import {
-  UserInteractionData,
-  UserInteractionRequest,
-  UserInteractionType,
-} from "../model/model";
 
 export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
   return class extends Base {
     async likeDocument(args: { documentId: string }): Promise<boolean> {
-      const uri = withAdditionalPathSegments(this.endpoint, ["users", this.userId, "interactions"]);
+      const uri = withAdditionalPathSegments(this.endpoint, [
+        "users",
+        this.userId,
+        "interactions",
+      ]);
 
-      const payload = JSON.stringify(
-        new UserInteractionRequest([
-          new UserInteractionData(
-            args.documentId,
-            UserInteractionType.positive
-          ),
-        ])
-      );
       const response = await fetch(uri, {
         method: "PATCH",
         headers: {
@@ -44,29 +35,37 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
           "Content-Type": "application/json",
           authorizationToken: this.token,
         },
-        body: payload,
+        body: JSON.stringify({
+          documents: {
+            id: args.documentId,
+            type: "positive",
+          },
+        }),
       });
 
       switch (response.status) {
         case 204:
           return true;
-        case 400:
-          let error = await response.json();
+        case 400: {
+          const error = await response.json();
           let errorKind = null;
 
-          switch (error["kind"]) {
+          switch (error.kind) {
             case "InvalidUserId":
               errorKind = UserInteractionErrorKind.InvalidUserId;
               break;
             case "InvalidDocumentId":
               errorKind = UserInteractionErrorKind.InvalidDocumentId;
               break;
+            default:
+              errorKind = UserInteractionErrorKind.Unknown;
           }
 
           throw new UserInteractionError(
-            errorKind!,
+            errorKind,
             "invalid request. User or document id is invalid"
           );
+        }
         default:
           throw new Error(
             `Status code ${response.status}: "${response.statusText}", "${response.text}".`

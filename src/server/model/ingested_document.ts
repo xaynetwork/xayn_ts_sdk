@@ -12,10 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export class IngestedDocument {
-  constructor(
-    readonly id: string,
-    readonly snippet: string,
-    readonly properties?: Object
-  ) {}
+export interface IngestedDocument {
+  id: string;
+  snippet: string;
+  properties?: Record<string, unknown>;
 }

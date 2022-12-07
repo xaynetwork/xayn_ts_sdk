@@ -1,6 +1,20 @@
+// Copyright 2022 Xayn AG
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import { expect } from "chai";
 import "mocha";
-import { IngestedDocument, Server } from "../index";
+import { Server } from "../index";
 
 const endpoint = "{ENDPOINT}";
 const token = "{TOKEN}";
@@ -12,43 +26,46 @@ const server = new Server({
 
 describe("ingest documents", () => {
   it("EXPECT documents are ingested", async () => {
-    let result = await server.ingest({
+    const result = await server.ingest({
       documents: [
-        new IngestedDocument(
-          "test_a",
-          "The world cup is starting next week! Who will be crowned champions?",
-          {
+        {
+          id: "test_a",
+          snippet:
+            "The world cup is starting next week! Who will be crowned champions?",
+          properties: {
             category: "sports",
-          }
-        ),
-        new IngestedDocument(
-          "test_b",
-          "How to cook spaghetti in 20 easy steps",
-          {
+          },
+        },
+        {
+          id: "test_b",
+          snippet: "How to cook spaghetti in 20 easy steps",
+          properties: {
             category: "recipes",
-          }
-        ),
-        new IngestedDocument(
-          "test_c",
-          "I wonder if this friggin test will ever work, love NPM really!",
-          {
+          },
+        },
+        {
+          id: "test_c",
+          snippet:
+            "I wonder if this friggin test will ever work, love NPM really!",
+          properties: {
             category: "programming",
-          }
-        ),
-        new IngestedDocument(
-          "test_d",
-          "Trump is attempting to go for a second term in 2024.",
-          {
+          },
+        },
+        {
+          id: "test_d",
+          snippet: "Trump is attempting to go for a second term in 2024.",
+          properties: {
             category: "politics",
-          }
-        ),
-        new IngestedDocument(
-          "test_e",
-          "Climate activists have glued themselves again on a famous painting in New York.",
-          {
+          },
+        },
+        {
+          id: "test_e",
+          snippet:
+            "Climate activists have glued themselves again on a famous painting in New York.",
+          properties: {
             category: "culture",
-          }
-        ),
+          },
+        },
       ],
     });
 
@@ -58,7 +75,7 @@ describe("ingest documents", () => {
 
 describe("update single document's properties", () => {
   it("EXPECT to update properties", async () => {
-    let result = await server.updateProperties({
+    const result = await server.updateProperties({
       documentId: "test_a",
       properties: {
         category: "football",
@@ -71,17 +88,17 @@ describe("update single document's properties", () => {
 
 describe("get single document's properties", () => {
   it("EXPECT to receive properties", async () => {
-    let result = await server.getProperties({
+    const result = (await server.getProperties({
       documentId: "test_a",
-    });
+    })) as { properties: { category: string } };
 
-    expect(result["properties"]["category"]).to.equal("football");
+    expect(result.properties.category).to.equal("football");
   });
 });
 
 describe("delete single document's properties", () => {
   it("EXPECT to delete properties", async () => {
-    let result = await server.deleteProperties({
+    const result = await server.deleteProperties({
       documentId: "test_a",
     });
 
@@ -91,7 +108,7 @@ describe("delete single document's properties", () => {
 
 describe("delete single document", () => {
   it("EXPECT document is deleted", async () => {
-    let result = await server.delete({
+    const result = await server.delete({
       documentId: "test_a",
     });
 
@@ -101,7 +118,7 @@ describe("delete single document", () => {
 
 describe("delete documents", () => {
   it("EXPECT documents are deleted", async () => {
-    let result = await server.deleteAll({
+    const result = await server.deleteAll({
       documents: ["test_b", "test_c"],
     });
 
