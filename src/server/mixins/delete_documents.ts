@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import fetch from "cross-fetch";
+
 import { withAdditionalPathSegments } from "../../utils";
-import { BaseServerCtr } from "../base_server";
+import type { BaseServerCtr } from "../base_server";
 
 export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
   return class extends Base {

@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import fetch from "cross-fetch";
+
 import { withAdditionalPathSegments } from "../../utils";
-import { BaseClientCtr } from "../base_client";
+import type { BaseClientCtr } from "../base_client";
 import {
   PersonalizedDocumentsError,
   PersonalizedDocumentsErrorKind,
 } from "../model/errors";
-import { PersonalizedDocumentData } from "../model/personalized_document_data";
+import type { PersonalizedDocumentData } from "../model/personalized_document_data";
 
 export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
   Base: TBase

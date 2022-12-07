@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import fetch from "cross-fetch";
+
 import { withAdditionalPathSegments } from "../../utils";
-import { BaseClientCtr } from "../base_client";
+import type { BaseClientCtr } from "../base_client";
 import {
   UserInteractionError,
   UserInteractionErrorKind,

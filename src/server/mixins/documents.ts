@@ -12,14 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import fetch from "cross-fetch";
+
 import { withAdditionalPathSegments } from "../../utils";
-import { BaseServerCtr } from "../base_server";
+import type { BaseServerCtr } from "../base_server";
 import {
   IngestionError,
   IngestionErrorDetails,
   IngestionErrorDocumentData,
 } from "../model/errors";
-import { IngestedDocument } from "../model/ingested_document";
+import type { IngestedDocument } from "../model/ingested_document";
 
 export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
   return class extends Base {
