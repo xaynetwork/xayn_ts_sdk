@@ -56,6 +56,32 @@ const server = new Server({
 
 const numberDocuments = 20;
 
+function randomWord() {
+  const randomWords = [
+    "some",
+    "random",
+    "words",
+    "are",
+    "listed",
+    "here",
+    "as",
+    "to",
+    "avoid",
+    "problems",
+    "with",
+    "not",
+    "enough",
+    "interactions",
+    "due",
+    "to",
+    "too",
+    "similar",
+    "embeddings",
+  ];
+
+  randomWords[Math.random() * randomWords.length];
+}
+
 describe("/users/{user_id}", () => {
   before(async function () {
     if (!hasOverrides && !(await client.isAvailable())) {
@@ -65,7 +91,7 @@ describe("/users/{user_id}", () => {
     for (let x = 0; x < documents.length; x++) {
       documents[x] = {
         id: `client-doc-${x}`,
-        snippet: `Some random ${x} values.`,
+        snippet: `${randomWord()} ${randomWord()} ${randomWord()}`,
         properties: {
           category: `cat-${x}`,
         },
@@ -84,6 +110,8 @@ describe("/users/{user_id}", () => {
 
     const result = await client.personalizedDocuments({});
 
-    expect(result.length).to.equal(10);
+    expect(result).to.not.include.members(["client-doc-1", "client-doc-2"]);
+    // due to to similar COIs this might not be 10
+    expect(result.length).to.be.greaterThan(5).and.lessThanOrEqual(10);
   });
 });
