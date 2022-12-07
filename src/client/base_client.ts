@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import fetch from "cross-fetch";
+
+import { withAdditionalPathSegments } from "../utils.js";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type _Constructor<T = unknown> = new (...args: any[]) => T;
 
@@ -30,5 +34,21 @@ export class BaseClient {
     this.token = args.token;
     this.endpoint = new URL(args.endpoint);
     this.userId = args.userId;
+  }
+
+  async isAvailable(): Promise<boolean> {
+    const uri = withAdditionalPathSegments(this.endpoint, ["health"]);
+    try {
+      const response = await fetch(uri, {
+        method: "GET",
+        headers: {
+          authorizationToken: this.token,
+        },
+      });
+      return response.status == 200;
+    } catch (e) {
+      console.warn(e);
+    }
+    return false;
   }
 }

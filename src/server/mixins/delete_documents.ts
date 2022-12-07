@@ -54,7 +54,7 @@ export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
           authorizationToken: this.token,
         },
         body: JSON.stringify({
-          document: args.documents,
+          documents: args.documents,
         }),
       });
 
@@ -62,7 +62,7 @@ export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
         case 204:
           return;
         case 400:
-          throw new Error("Invalid document id.");
+          throw new Error("Malformed input.");
         case 404:
           throw new Error("Document id not found.");
         default:

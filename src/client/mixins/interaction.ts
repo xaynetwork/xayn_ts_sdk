@@ -38,10 +38,12 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
           authorizationToken: this.token,
         },
         body: JSON.stringify({
-          documents: {
-            id: args.documentId,
-            type: "positive",
-          },
+          documents: [
+            {
+              id: args.documentId,
+              type: "positive",
+            },
+          ],
         }),
       });
 
@@ -60,18 +62,18 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
               errorKind = UserInteractionErrorKind.InvalidDocumentId;
               break;
             default:
+              console.warn(error);
               errorKind = UserInteractionErrorKind.Unknown;
           }
 
-          throw new UserInteractionError(
-            errorKind,
-            "invalid request. User or document id is invalid"
+          throw new UserInteractionError(errorKind, "invalid request");
+        }
+        default: {
+          const body = await response.text();
+          throw new Error(
+            `Status code ${response.status}: "${response.statusText}", "${body}".`
           );
         }
-        default:
-          throw new Error(
-            `Status code ${response.status}: "${response.statusText}", "${response.text}".`
-          );
       }
     }
   };

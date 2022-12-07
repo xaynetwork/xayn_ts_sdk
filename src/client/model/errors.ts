@@ -17,18 +17,15 @@
 /// --------------------------------
 
 export enum PersonalizedDocumentsErrorKind {
-  NotEnoughInteractions,
-  Unknown,
+  NotEnoughInteractions = "NotEnoughInteractions",
 }
 
 export class PersonalizedDocumentsError extends Error {
   readonly kind: PersonalizedDocumentsErrorKind;
   constructor(kind: PersonalizedDocumentsErrorKind, msg: string) {
-    super(msg);
-
-    this.kind = kind;
-
+    super(`${msg}: ${kind}`);
     Object.setPrototypeOf(this, PersonalizedDocumentsError.prototype);
+    this.kind = kind;
   }
 }
 
@@ -37,18 +34,17 @@ export class PersonalizedDocumentsError extends Error {
 /// --------------------------------
 
 export enum UserInteractionErrorKind {
-  InvalidUserId,
-  InvalidDocumentId,
-  Unknown,
+  InvalidUserId = "InvalidUserId",
+  InvalidDocumentId = "InvalidDocumentId",
+  Unknown = "",
 }
 
 export class UserInteractionError extends Error {
   readonly kind: UserInteractionErrorKind;
   constructor(kind: UserInteractionErrorKind, msg: string) {
-    super(msg);
-
-    this.kind = kind;
-
+    super(`${msg}: ${kind}`);
+    //should not be necessary as we target ES6/ES2015 onward
     Object.setPrototypeOf(this, UserInteractionError.prototype);
+    this.kind = kind;
   }
 }
