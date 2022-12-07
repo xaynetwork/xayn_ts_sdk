@@ -14,8 +14,8 @@
 
 import fetch from "cross-fetch";
 
-import { withAdditionalPathSegments } from "../../utils";
-import type { BaseServerCtr } from "../base_server";
+import { withAdditionalPathSegments } from "../../utils.js";
+import type { BaseServerCtr } from "../base_server.js";
 
 export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
   return class extends Base {

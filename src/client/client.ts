@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { BaseClient } from "./base_client";
-import { LikeDocumentMixin, PersonalizedDocumentMixin } from "./mixins/mixins";
+import { BaseClient } from "./base_client.js";
+import {
+  LikeDocumentMixin,
+  PersonalizedDocumentMixin,
+} from "./mixins/mixins.js";
 
-export * from "./model/errors";
-export * from "./model/model";
+export * from "./model/errors.js";
+export * from "./model/model.js";
 export const Client = PersonalizedDocumentMixin(LikeDocumentMixin(BaseClient));
 
 function _ts_type_helper() {

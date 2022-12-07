@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { BaseServer } from "./base_server";
-import { DeleteDocumentsMixin } from "./mixins/delete_documents";
-import { DocumentsMixin } from "./mixins/documents";
-import { DocumentPropertiesMixin } from "./mixins/document_properties";
+import { BaseServer } from "./base_server.js";
+import { DeleteDocumentsMixin } from "./mixins/delete_documents.js";
+import { DocumentsMixin } from "./mixins/documents.js";
+import { DocumentPropertiesMixin } from "./mixins/document_properties.js";
 
-export * from "./model/errors";
-export * from "./model/model";
+export * from "./model/errors.js";
+export * from "./model/model.js";
 export const Server = DocumentPropertiesMixin(
   DeleteDocumentsMixin(DocumentsMixin(BaseServer))
 );

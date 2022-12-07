@@ -12,5 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export { LikeDocumentMixin } from "./interaction";
-export { PersonalizedDocumentMixin } from "./personalized_documents";
+export { LikeDocumentMixin } from "./interaction.js";
+export { PersonalizedDocumentMixin } from "./personalized_documents.js";

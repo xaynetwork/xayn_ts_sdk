@@ -12,5 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export * from "./client/client";
-export * from "./server/server";
+export * from "./client/client.js";
+export * from "./server/server.js";

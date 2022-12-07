@@ -14,13 +14,13 @@
 
 import fetch from "cross-fetch";
 
-import { withAdditionalPathSegments } from "../../utils";
-import type { BaseClientCtr } from "../base_client";
+import { withAdditionalPathSegments } from "../../utils.js";
+import type { BaseClientCtr } from "../base_client.js";
 import {
   PersonalizedDocumentsError,
   PersonalizedDocumentsErrorKind,
-} from "../model/errors";
-import type { PersonalizedDocumentData } from "../model/personalized_document_data";
+} from "../model/errors.js";
+import type { PersonalizedDocumentData } from "../model/personalized_document_data.js";
 
 export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
   Base: TBase

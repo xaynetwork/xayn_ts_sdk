@@ -14,12 +14,12 @@
 
 import fetch from "cross-fetch";
 
-import { withAdditionalPathSegments } from "../../utils";
-import type { BaseClientCtr } from "../base_client";
+import { withAdditionalPathSegments } from "../../utils.js";
+import type { BaseClientCtr } from "../base_client.js";
 import {
   UserInteractionError,
   UserInteractionErrorKind,
-} from "../model/errors";
+} from "../model/errors.js";
 
 export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
   return class extends Base {

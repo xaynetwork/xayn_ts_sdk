@@ -14,14 +14,14 @@
 
 import fetch from "cross-fetch";
 
-import { withAdditionalPathSegments } from "../../utils";
-import type { BaseServerCtr } from "../base_server";
+import { withAdditionalPathSegments } from "../../utils.js";
+import type { BaseServerCtr } from "../base_server.js";
 import {
   IngestionError,
   IngestionErrorDetails,
   IngestionErrorDocumentData,
-} from "../model/errors";
-import type { IngestedDocument } from "../model/ingested_document";
+} from "../model/errors.js";
+import type { IngestedDocument } from "../model/ingested_document.js";
 
 export function DocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
   return class extends Base {

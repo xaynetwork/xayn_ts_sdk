@@ -12,5 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export * from "./errors";
-export * from "./ingested_document";
+export * from "./errors.js";
+export * from "./ingested_document.js";
