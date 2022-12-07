@@ -141,7 +141,7 @@ await sdk.delete({
 Deletes a batch of documents from our system.
 
 ```typescript
-const result = await sdk.deleteAll({
+await sdk.deleteAll({
     documents: ["document_id_a", "document_id_b"],
 });
 ```
