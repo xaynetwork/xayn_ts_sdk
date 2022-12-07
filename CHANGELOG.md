@@ -1,7 +1,7 @@
 
 # Change Log
 
-## v0.0.2
+## v0.0.2 (in progress)
 
 - `ingest` now accepts POD json object instead of needing to create
   a object with a constructor
