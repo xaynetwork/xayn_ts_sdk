@@ -41,7 +41,7 @@ const server = new Server({
 
 describe("/documents endpoint", () => {
   before(async function () {
-    if (!hasOverrides && !(await server.isAvailable())) {
+    if (!hasOverrides && !(await server._testing_isAvailable())) {
       this.skip();
     }
     await server.ingest({

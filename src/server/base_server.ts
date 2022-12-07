@@ -33,7 +33,7 @@ export class BaseServer {
     this.endpoint = new URL(args.endpoint);
   }
 
-  async isAvailable(): Promise<boolean> {
+  async _testing_isAvailable(): Promise<boolean> {
     const uri = withAdditionalPathSegments(this.endpoint, ["health"]);
     try {
       const response = await fetch(uri, {

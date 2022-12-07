@@ -180,11 +180,6 @@ The default size is 10, but you can also pass a custom ```count``` value to over
 const result = await sdk.personalizedDocuments({});
 ```
 
-### (tmp. unusable) isAvailable() Method
-
-**The endpoint it uses is currently not exposed so temporary it is not usable outside of our internal testing.**
-There is a `client.isAvailable()` and a `server.isAvailable()` method which can be used to check if the API is reachable.
-
 License
 --------
 

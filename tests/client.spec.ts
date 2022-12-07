@@ -84,7 +84,7 @@ function randomWord() {
 
 describe("/users/{user_id}", () => {
   before(async function () {
-    if (!hasOverrides && !(await client.isAvailable())) {
+    if (!hasOverrides && !(await client._testing_isAvailable())) {
       this.skip();
     }
     const documents = new Array(numberDocuments);
