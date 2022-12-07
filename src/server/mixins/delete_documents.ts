@@ -19,7 +19,7 @@ import type { BaseServerCtr } from "../base_server";
 
 export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
   return class extends Base {
-    async delete(args: { documentId: string }): Promise<boolean> {
+    async delete(args: { documentId: string }): Promise<void> {
       const uri = withAdditionalPathSegments(this.endpoint, [
         "documents",
         args.documentId,
@@ -34,7 +34,7 @@ export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
 
       switch (response.status) {
         case 204:
-          return true;
+          return;
         case 400:
           throw new Error("Invalid request.");
         default:
@@ -44,7 +44,7 @@ export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
       }
     }
 
-    async deleteAll(args: { documents: string[] }): Promise<boolean> {
+    async deleteAll(args: { documents: string[] }): Promise<void> {
       const uri = withAdditionalPathSegments(this.endpoint, ["documents"]);
       const response = await fetch(uri, {
         method: "DELETE",
@@ -60,7 +60,7 @@ export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
 
       switch (response.status) {
         case 204:
-          return true;
+          return;
         case 400:
           throw new Error("Invalid document id.");
         case 404:

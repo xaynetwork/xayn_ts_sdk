@@ -23,7 +23,7 @@ import {
 
 export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
   return class extends Base {
-    async likeDocument(args: { documentId: string }): Promise<boolean> {
+    async likeDocument(args: { documentId: string }): Promise<void> {
       const uri = withAdditionalPathSegments(this.endpoint, [
         "users",
         this.userId,
@@ -47,7 +47,7 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
 
       switch (response.status) {
         case 204:
-          return true;
+          return;
         case 400: {
           const error = await response.json();
           let errorKind = null;

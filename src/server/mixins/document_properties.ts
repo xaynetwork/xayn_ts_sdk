@@ -29,6 +29,7 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
         args.documentId,
         "properties",
       ]);
+
       const response = await fetch(uri, {
         method: "GET",
         headers: {
@@ -38,8 +39,12 @@ export function DocumentPropertiesMixin<TBase extends BaseServerCtr>(
       });
 
       switch (response.status) {
-        case 200:
-          return await response.json();
+        case 200: {
+          const body = (await response.json()) as {
+            properties: Record<string, unknown>;
+          };
+          return body.properties;
+        }
         case 400:
           throw new Error("Invalid document id.");
         case 404:

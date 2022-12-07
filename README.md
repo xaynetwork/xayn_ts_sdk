@@ -113,7 +113,7 @@ const result = await sdk.getProperties({
     documentId: "document_id_a",
 });
 
-expect(result["properties"]["category"]).to.equal("fonts");
+expect(result["category"]).to.equal("fonts");
 ```
 
 ### Delete a document's properties
