@@ -14,12 +14,12 @@
 
 import fetch from "cross-fetch";
 
-import { withAdditionalPathSegments } from "../../utils";
-import type { BaseServerCtr } from "../base_server";
+import { withAdditionalPathSegments } from "../../utils.js";
+import type { BaseServerCtr } from "../base_server.js";
 
 export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
   return class extends Base {
-    async delete(args: { documentId: string }): Promise<boolean> {
+    async delete(args: { documentId: string }): Promise<void> {
       const uri = withAdditionalPathSegments(this.endpoint, [
         "documents",
         args.documentId,
@@ -34,7 +34,7 @@ export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
 
       switch (response.status) {
         case 204:
-          return true;
+          return;
         case 400:
           throw new Error("Invalid request.");
         default:
@@ -44,7 +44,7 @@ export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
       }
     }
 
-    async deleteAll(args: { documents: string[] }): Promise<boolean> {
+    async deleteAll(args: { documents: string[] }): Promise<void> {
       const uri = withAdditionalPathSegments(this.endpoint, ["documents"]);
       const response = await fetch(uri, {
         method: "DELETE",
@@ -54,15 +54,15 @@ export function DeleteDocumentsMixin<TBase extends BaseServerCtr>(Base: TBase) {
           authorizationToken: this.token,
         },
         body: JSON.stringify({
-          document: args.documents,
+          documents: args.documents,
         }),
       });
 
       switch (response.status) {
         case 204:
-          return true;
+          return;
         case 400:
-          throw new Error("Invalid document id.");
+          throw new Error("Malformed input.");
         case 404:
           throw new Error("Document id not found.");
         default:

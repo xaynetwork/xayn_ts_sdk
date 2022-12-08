@@ -12,5 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export * from "./errors";
-export * from "./personalized_document_data";
+export * from "./errors.js";
+export * from "./personalized_document_data.js";

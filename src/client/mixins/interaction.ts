@@ -14,16 +14,16 @@
 
 import fetch from "cross-fetch";
 
-import { withAdditionalPathSegments } from "../../utils";
-import type { BaseClientCtr } from "../base_client";
+import { withAdditionalPathSegments } from "../../utils.js";
+import type { BaseClientCtr } from "../base_client.js";
 import {
   UserInteractionError,
   UserInteractionErrorKind,
-} from "../model/errors";
+} from "../model/errors.js";
 
 export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
   return class extends Base {
-    async likeDocument(args: { documentId: string }): Promise<boolean> {
+    async likeDocument(args: { documentId: string }): Promise<void> {
       const uri = withAdditionalPathSegments(this.endpoint, [
         "users",
         this.userId,
@@ -38,16 +38,18 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
           authorizationToken: this.token,
         },
         body: JSON.stringify({
-          documents: {
-            id: args.documentId,
-            type: "positive",
-          },
+          documents: [
+            {
+              id: args.documentId,
+              type: "positive",
+            },
+          ],
         }),
       });
 
       switch (response.status) {
         case 204:
-          return true;
+          return;
         case 400: {
           const error = await response.json();
           let errorKind = null;
@@ -60,18 +62,18 @@ export function LikeDocumentMixin<TBase extends BaseClientCtr>(Base: TBase) {
               errorKind = UserInteractionErrorKind.InvalidDocumentId;
               break;
             default:
+              console.warn(error);
               errorKind = UserInteractionErrorKind.Unknown;
           }
 
-          throw new UserInteractionError(
-            errorKind,
-            "invalid request. User or document id is invalid"
+          throw new UserInteractionError(errorKind, "invalid request");
+        }
+        default: {
+          const body = await response.text();
+          throw new Error(
+            `Status code ${response.status}: "${response.statusText}", "${body}".`
           );
         }
-        default:
-          throw new Error(
-            `Status code ${response.status}: "${response.statusText}", "${response.text}".`
-          );
       }
     }
   };

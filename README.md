@@ -113,7 +113,7 @@ const result = await sdk.getProperties({
     documentId: "document_id_a",
 });
 
-expect(result["properties"]["category"]).to.equal("fonts");
+expect(result["category"]).to.equal("fonts");
 ```
 
 ### Delete a document's properties
@@ -141,7 +141,7 @@ await sdk.delete({
 Deletes a batch of documents from our system.
 
 ```typescript
-const result = await sdk.deleteAll({
+await sdk.deleteAll({
     documents: ["document_id_a", "document_id_b"],
 });
 ```
