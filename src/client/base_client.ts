@@ -32,7 +32,7 @@ export class BaseClient {
     readonly userId: string;
   }) {
     this.token = args.token;
-    this.endpoint = new URL(args.endpoint);
+    this.endpoint = new URL(args.endpoint.toString());
     this.userId = args.userId;
   }
 

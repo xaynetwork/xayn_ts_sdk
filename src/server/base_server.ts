@@ -30,7 +30,7 @@ export class BaseServer {
     readonly endpoint: string | URL;
   }) {
     this.token = args.token;
-    this.endpoint = new URL(args.endpoint);
+    this.endpoint = new URL(args.endpoint.toString());
   }
 
   async _testing_isAvailable(): Promise<boolean> {

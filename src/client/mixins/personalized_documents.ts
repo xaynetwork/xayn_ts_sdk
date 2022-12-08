@@ -51,7 +51,8 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
         },
       });
 
-      const body = await response.json();
+      const textBody = await response.text();
+      const body = JSON.parse(textBody);
       if (response.status == 200) {
         return body.documents as PersonalizedDocumentData[];
       } else if (body.kind == "NotEnoughInteractions") {
@@ -60,7 +61,7 @@ export function PersonalizedDocumentMixin<TBase extends BaseClientCtr>(
           "Impossible to fetch personalized documents"
         );
       } else {
-        throw new Error(`request failed: ${response.status}: ${body}`);
+        throw new Error(`request failed: ${response.status}: ${textBody}`);
       }
     }
   };
