@@ -20,15 +20,13 @@ set -x
 
 # Build for CommonJs
 #
-# This should work both for node and browser as we
-# use cross-fetch to abstract over the differences
-# there.
+# This should work both for node and browser but older
+# node version (<18) need to polyfill fetch.
 tsc -p ./tsconfig.cjs.json
 
 # Build for ECMAScript Modules
 #
-# This should work both for node and browser as we
-# use cross-fetch to abstract over the differences
-# there.
+# This should work both for node and browser but older
+# node version (<18) need to polyfill fetch.
 tsc -p ./tsconfig.esm.json
 

@@ -10,9 +10,6 @@ and how it can be used will stay roughly the same. Mainly:
   by publishers server. This will be renamed soon candidates are `PersonalizationApi`
   and `ManagementApi`, through it's not fixed.
 
-- Currently the library only builds ECMScript modules, in the coming days we will
-  add support for at least some of the other still commonly used module format.
-
 - The implementation has a lot of potential for improvement in the future it will
   like be auto generated from our internal API specification.
 
@@ -20,6 +17,10 @@ and how it can be used will stay roughly the same. Mainly:
 ## Npm
 
 Pre-build JS with TypeScript annotation files is published to [NPM](https://www.npmjs.com/package/xayn_ts_sdk)
+
+## Node < v18
+
+This library uses WHATWG `fetch`. This is not available in node before version 18 (14-lts,16-lts). As such when using this library on a older node LTS version you need to polyfill `fetch` before using this library.
 
 ___
 
