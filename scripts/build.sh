@@ -18,15 +18,16 @@ OUT="$ROOT/dist"
 # Cheap way to get some progress feedback
 set -x
 
-# Build for CommonJs
-#
-# This should work both for node and browser but older
-# node version (<18) need to polyfill fetch.
-tsc -p ./tsconfig.cjs.json
+# Run tsc by hand to emit types
+tsc -p ./tsconfig.json
 
-# Build for ECMAScript Modules
-#
-# This should work both for node and browser but older
-# node version (<18) need to polyfill fetch.
-tsc -p ./tsconfig.esm.json
+# Build unbundled ESM modules for usage in projects which use a bundler
+BABEL_ENV=esm babel --extensions '.ts' --out-dir 'dist/esm' src/ #--source-maps
 
+# Build unbundled CJS modules for usage in projects which use a bundler
+BABEL_ENV=cjs babel --extensions '.ts' --out-dir 'dist/cjs' src/ #--source-maps
+
+# Use rollup.js to:
+# - generate a bundled (and minified) ESM module for ad-hoc in browser use
+# - generate a bundled (and minified) UMD module for ad-hoc usage in old browsers
+BABEL_ENV=bundled rollup -c
