@@ -28,7 +28,7 @@
   "homepage": "https://github.com/xaynetwork/xayn_ts_sdk#readme",
   "type": "module",
   "main": "dist/cjs/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/src/index.d.ts",
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
