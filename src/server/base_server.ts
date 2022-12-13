@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import fetch from "cross-fetch";
-
 import { withAdditionalPathSegments } from "../utils.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-unused-vars
@@ -30,7 +28,7 @@ export class BaseServer {
     readonly endpoint: string | URL;
   }) {
     this.token = args.token;
-    this.endpoint = new URL(args.endpoint);
+    this.endpoint = new URL(args.endpoint.toString());
   }
 
   async _testing_isAvailable(): Promise<boolean> {

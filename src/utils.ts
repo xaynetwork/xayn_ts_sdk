@@ -16,7 +16,7 @@ export function withAdditionalPathSegments(
   url: string | URL,
   segments: string[]
 ): URL {
-  const extended = new URL(url);
+  const extended = new URL(url.toString());
   extended.pathname =
     // make sure not not have a //
     [trimEndSlash(extended.pathname)]

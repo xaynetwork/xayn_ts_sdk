@@ -1,13 +1,22 @@
 {
-    // tsconfig used for TESTING AND DEVELOPMENT
+    // tsconfig used for TESTING AND DEVELOPMENT the build steps use
+    // babel for transpiling TypeScript to JavaScript. It's also used
+    // for generating the type definitions.
+    //
     // For now this will use node-lts-strictest-esm, but it might switch
     // to something else in the future.
     "$schema": "https://json.schemastore.org/tsconfig",
     "extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
     "compilerOptions": {
+        // We don't actually support DOM, but it's the simplest way to get
+        // fetch type definitions and we require a fetch polyfill.
+        "lib": ["ES2015", "DOM"],
         "rootDirs": ["src/", "tests/"],
+        // With ts-node we can directly load typescript code into node
+        // without needing to transpile it beforehand.
+        "emitDeclarationOnly": true,
         "declaration": true,
-        "noEmit": true
+        "outDir": "dist/types"
     },
     "include": [ "src/**/*", "tests/**/*" ]
 }

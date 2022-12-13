@@ -10,9 +10,6 @@ and how it can be used will stay roughly the same. Mainly:
   by publishers server. This will be renamed soon candidates are `PersonalizationApi`
   and `ManagementApi`, through it's not fixed.
 
-- Currently the library only builds ECMScript modules, in the coming days we will
-  add support for at least some of the other still commonly used module format.
-
 - The implementation has a lot of potential for improvement in the future it will
   like be auto generated from our internal API specification.
 
@@ -20,6 +17,39 @@ and how it can be used will stay roughly the same. Mainly:
 ## Npm
 
 Pre-build JS with TypeScript annotation files is published to [NPM](https://www.npmjs.com/package/xayn_ts_sdk)
+
+## Platform Support
+
+Depending of how/what is imported the requirements differ:
+
+- default unbundled ESM module (`dist/esm/index.js`)
+    - is meant to be used by modern tooling which will bundle it's dependencies, both for browser and nodejs
+    - as such no transpilation for supporting older targets is done
+
+- default unbundled CommonJS module (`dist/cjs/index.js`)
+    - this is meant for older tooling and older versions of nodejs
+    - targets ES2015 + WHATWG fetch
+    - **if `fetch` is not available (e.g. Node Version < 18) a polyfill needs to be imported before using this library**
+
+- bundled ESM/UMD modules (`dist/bundled/index{.esm,.umd}{.min,}.js`)
+    - this is meant for situations where the library can not be bundled into the application which is using it.
+    - targets browserslist `> 0.25%, not dead` but at least ES2015
+    - at point of writing this corresponds to
+
+      ```json
+      {
+        "android": "4.4.3",
+        "chrome": "103",
+        "edge": "107",
+        "firefox": "106",
+        "ios": "12.2",
+        "opera": "91",
+        "safari": "13.1",
+        "samsung": "18"
+      }
+      ```
+    - this will change with new releases and older browsers falling below
+      0.25% market share
 
 ___
 
